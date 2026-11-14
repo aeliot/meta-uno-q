@@ -1,0 +1,4 @@
+This is the Arduino UNO Q (Qualcomm QRB2210) build configuration
+for the meta-uno-q layer -- Yocto wrynose / Qualcomm Linux 2.x.
+
+    MACHINE = uno-q      DISTRO = qcom-distro

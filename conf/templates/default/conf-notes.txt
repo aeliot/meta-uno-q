@@ -1,0 +1,6 @@
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+
+Arduino Uno Q product images:
+    bitbake qcom-console-image

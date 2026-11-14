@@ -1,0 +1,34 @@
+# Source this file to set up the BitBake environment for the Arduino UNO Q tree.
+#
+#   $ . ./setup-environment
+#
+# It initialises the OpenEmbedded build environment using the checked-out
+# openembedded-core (wrynose) and the sibling bitbake checkout, and drops you
+# into ./build with conf/bblayers.conf and conf/local.conf already in place.
+
+_this="${BASH_SOURCE:-$0}"
+_root="$(cd "$(dirname "$_this")" && pwd)"
+
+if [ ! -d "$_root/sources/openembedded-core" ]; then
+    echo "error: $_root/sources/openembedded-core not found" >&2
+    return 1 2>/dev/null || exit 1
+fi
+
+# Seed a fresh build/conf from the meta-elcano template (bblayers.conf +
+# local.conf). Existing conf files are left untouched by oe-setup-builddir.
+export TEMPLATECONF="$_root/sources/meta-elcano/conf/templates/default"
+
+# oe-init-build-env finds bitbake at ../bitbake relative to openembedded-core.
+. "$_root/sources/openembedded-core/oe-init-build-env" "$_root/build"
+
+cat <<'EOF'
+
+Arduino UNO Q Yocto tree ready (Yocto wrynose / Qualcomm Linux 2.x).
+
+  MACHINE = uno-q      DISTRO = qcom-distro
+
+Console image:          bitbake qcom-console-image
+
+Images land in: build/tmp-eng/, build/tmp-user/, or build/tmp/ (the rest),
+under deploy/images/elcano-uno/
+EOF
